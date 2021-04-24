@@ -1,3 +1,5 @@
 zuul:
-  routes:
-    lostAndFoundMicroService: /produce
+ routes:
+  lostAndFoundMicroService: 
+    path: /lostAndFound/**
+    serviceId: lostAndFoundMicroService
