@@ -3,6 +3,9 @@ zuul:
   lostAndFoundMicroService: 
     path: /lostAndFound/**
     serviceId: lostAndFoundMicroService
+  propets-authentification-service: 
+    path: /api/auth/**
+    serviceId: propets-authentification-service
 
 
 
