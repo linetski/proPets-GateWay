@@ -15,9 +15,10 @@ eureka:
     healthcheck:
       enabled: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:localhost}/eureka/
+      defaultZone: ${EUREKA_URI:localhost:5000}/eureka/
   instance:
       instanceId: ${DOMAIN_NAME}
+      nonSecurePort: 80
 #security:
 # user:
 #    password: ${eureka.password}
