@@ -19,6 +19,7 @@ eureka:
   instance:
       instanceId: ${DOMAIN_NAME}
       nonSecurePort: 80
+      preferIpAddress: false
 #security:
 # user:
 #    password: ${eureka.password}
