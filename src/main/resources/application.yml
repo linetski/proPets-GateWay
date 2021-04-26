@@ -9,13 +9,15 @@ zuul:
 
 
 
-
+   
 eureka:
   client:
     healthcheck:
       enabled: true
     serviceUrl:
-      defaultZone: ${EUREKA_URL:https://propets-eurekaservice.herokuapp.com}/eureka/
+      defaultZone: ${EUREKA_URI:localhost}/eureka/
+  instance:
+      instanceId: ${DOMAIN_NAME}
 #security:
 # user:
 #    password: ${eureka.password}
