@@ -3,9 +3,10 @@ zuul:
   lostAndFoundService: 
     path: /lostAndFound/**
     serviceId: lostAndFoundService
-  propets-authentification-service: 
+  propets-auth-service: 
     path: /auth/**
-    serviceId: propets-authentification-service
+    serviceId: propets-auth-service
+ sensitiveHeaders: Cookie,Set-Cookie
 
 
 
@@ -13,8 +14,9 @@ zuul:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_URI:localhost:5000}/eureka/
-  instance:
-      instanceId: ${DOMAIN_NAME}:${random.value}
-      hostname: ${DOMAIN_NAME}
-      nonSecurePort: 80
+      defaultZone: ${EUREKA_URI:http://localhost:5000}/eureka
+  
+#  instance:
+#      instanceId: ${DOMAIN_NAME:localhost}:${random.value}
+#      hostname: ${DOMAIN_NAME}
+#      nonSecurePort: 80
