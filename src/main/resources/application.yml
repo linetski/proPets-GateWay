@@ -7,6 +7,9 @@ zuul:
   propets-auth-service: 
     path: /auth/**
     serviceId: propets-auth-service
+  ui:
+    path: /
+    url: https://master.d1q4lgt92mobwt.amplifyapp.com 
 
 
 
