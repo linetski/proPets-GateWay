@@ -40,6 +40,7 @@ public class SimpleFilter extends ZuulFilter {
 
 	  private static Logger log = LoggerFactory.getLogger(SimpleFilter.class);
 	  private static Date lastUpdated;
+	  private static boolean firstRun = true;
 	  static{
 		  lastUpdated = new Date();
 	  }
@@ -68,7 +69,8 @@ public class SimpleFilter extends ZuulFilter {
 	    long diff = date.getTime() - lastUpdated.getTime();
 	    long minutes = TimeUnit.MILLISECONDS.toMinutes(diff); 
 	    log.info("service was idle for " + minutes + "minutes");
-	    if(minutes > 25) {
+	    if(minutes > 25 || firstRun) {
+	    	firstRun=false;
 	    	log.info("wakeup services start");
 	    	WakeUpHerokuProcessThread t1 = new WakeUpHerokuProcessThread("https://propets-eurekaservice.herokuapp.com");
 	    	t1.start();	    	
