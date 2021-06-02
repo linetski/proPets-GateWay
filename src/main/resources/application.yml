@@ -9,7 +9,7 @@ zuul:
     serviceId: propets-auth-service
   ui:
     path: /**
-    url: http://84.94.104.241:3001
+    url: http://84.228.171.29:3001
 
 
 
