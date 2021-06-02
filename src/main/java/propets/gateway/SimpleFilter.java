@@ -67,16 +67,29 @@ public class SimpleFilter extends ZuulFilter {
 	    Date date = new Date();
 	    long diff = date.getTime() - lastUpdated.getTime();
 	    long minutes = TimeUnit.MILLISECONDS.toMinutes(diff); 
+	    log.info("service was idle for " + minutes + "minutes");
 	    if(minutes > 25) {
 	    	log.info("wakeup services start");
-	    	new WakeUpHerokuProcessThread("https://propets-eurekaservice.herokuapp.com").start();
-	    	new WakeUpHerokuProcessThread("https://propets-configuration-service.herokuapp.com").start();
-	    	new WakeUpHerokuProcessThread("https://propets-auth-service.herokuapp.com").start();
-	    	new WakeUpHerokuProcessThread("https://propets-lostandfoundservice.herokuapp.com").start();
-	    	new WakeUpHerokuProcessThread("https://propets-elastic-service.herokuapp.com").start();
-	    	new WakeUpHerokuProcessThread("https://propets-notification-service.herokuapp.com").start();
+	    	WakeUpHerokuProcessThread t1 = new WakeUpHerokuProcessThread("https://propets-eurekaservice.herokuapp.com");
+	    	t1.start();	    	
+	    	WakeUpHerokuProcessThread t2 = new WakeUpHerokuProcessThread("https://propets-configuration-service.herokuapp.com");
+	    	t2.start();	    	
+	    	WakeUpHerokuProcessThread t3 = new WakeUpHerokuProcessThread("https://propets-auth-service.herokuapp.com");
+	    	t3.start();	    	
+	    	WakeUpHerokuProcessThread t4 = new WakeUpHerokuProcessThread("https://propets-lostandfoundservice.herokuapp.com");
+	    	t4.start();	    	
+	    	WakeUpHerokuProcessThread t5 = new WakeUpHerokuProcessThread("https://propets-elastic-service.herokuapp.com");
+	    	t5.start();	    	
+	    	WakeUpHerokuProcessThread t6 = new WakeUpHerokuProcessThread("https://propets-notification-service.herokuapp.com");
+	    	t6.start();
+	    	
 	    	try {
-				Thread.sleep(50*1000);
+				t1.join();
+				t2.join();
+		    	t3.join();
+		    	t4.join();
+		    	t5.join();
+		    	t6.join();
 			} catch (InterruptedException e) {
 				log.info("InterruptedException occured");
 			}
