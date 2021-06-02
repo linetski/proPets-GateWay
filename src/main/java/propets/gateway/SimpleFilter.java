@@ -53,8 +53,9 @@ public class SimpleFilter extends ZuulFilter {
 		    triggerUrl("https://propets-elastic-service.herokuapp.com");
 		    triggerUrl("https://propets-notification-service.herokuapp.com");
 		    log.info("wakeup services end");
+		    lastUpdated = date;
 	    }
-	    lastUpdated = date;
+	    
 	    log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
 
 	    return null;
