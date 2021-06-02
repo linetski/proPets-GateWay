@@ -14,6 +14,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SimpleFilter extends ZuulFilter {
+	
+	public class WakeUpHerokuProcessThread extends Thread {
+		
+		String urlString;
+		
+		public WakeUpHerokuProcessThread(String urlString) {
+			this.urlString = urlString;
+		}
+		
+	    public void run(){
+	    	try {
+				 // Create a neat value object to hold the URL
+				    URL url = new URL(this.urlString);
+				 // Open a connection(?) on the URL(??) and cast the response(???)
+				    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				    connection.setConnectTimeout(60 * 1000);
+				    // This line makes the request
+				    connection.getInputStream();
+				    } catch(Exception e) {
+				    	
+				    }
+	    }
+	  }
 
 	  private static Logger log = LoggerFactory.getLogger(SimpleFilter.class);
 	  private static Date lastUpdated;
@@ -46,12 +69,17 @@ public class SimpleFilter extends ZuulFilter {
 	    long minutes = TimeUnit.MILLISECONDS.toMinutes(diff); 
 	    if(minutes > 25) {
 	    	log.info("wakeup services start");
-		    triggerUrl("https://propets-eurekaservice.herokuapp.com");
-		    triggerUrl("https://propets-configuration-service.herokuapp.com");
-		    triggerUrl("https://propets-auth-service.herokuapp.com");
-		    triggerUrl("https://propets-lostandfoundservice.herokuapp.com");
-		    triggerUrl("https://propets-elastic-service.herokuapp.com");
-		    triggerUrl("https://propets-notification-service.herokuapp.com");
+	    	new WakeUpHerokuProcessThread("https://propets-eurekaservice.herokuapp.com").start();
+	    	new WakeUpHerokuProcessThread("https://propets-configuration-service.herokuapp.com").start();
+	    	new WakeUpHerokuProcessThread("https://propets-auth-service.herokuapp.com").start();
+	    	new WakeUpHerokuProcessThread("https://propets-lostandfoundservice.herokuapp.com").start();
+	    	new WakeUpHerokuProcessThread("https://propets-elastic-service.herokuapp.com").start();
+	    	new WakeUpHerokuProcessThread("https://propets-notification-service.herokuapp.com").start();
+	    	try {
+				Thread.sleep(50*1000);
+			} catch (InterruptedException e) {
+				log.info("InterruptedException occured");
+			}
 		    log.info("wakeup services end");
 		    lastUpdated = date;
 	    }
@@ -62,17 +90,7 @@ public class SimpleFilter extends ZuulFilter {
 	  }
 	  
 	  public void triggerUrl(String urlString) {
-		  try {
-				 // Create a neat value object to hold the URL
-				    URL url = new URL(urlString);
-				 // Open a connection(?) on the URL(??) and cast the response(???)
-				    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-				    // This line makes the request
-				    connection.getInputStream();
-				    } catch(Exception e) {
-				    	
-				    }
+		  
 	  }
 
 	}
