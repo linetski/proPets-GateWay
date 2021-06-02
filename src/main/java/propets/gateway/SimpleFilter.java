@@ -1,6 +1,5 @@
 package propets.gateway;
 
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
@@ -32,6 +31,7 @@ public class SimpleFilter extends ZuulFilter {
 				    connection.setConnectTimeout(60 * 1000);
 				    // This line makes the request
 				    connection.getInputStream();
+				    log.info(urlString + "wakedUp");
 				    } catch(Exception e) {
 				    	
 				    }
