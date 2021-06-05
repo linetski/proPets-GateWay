@@ -18,8 +18,4 @@ public class GatewayApplication {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
 	
-	@Bean
-	public SimpleFilter simpleFilter() {
-	   return new SimpleFilter();
-	}
 }

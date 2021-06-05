@@ -3,13 +3,13 @@ zuul:
  routes:
   lostAndFoundService: 
     path: /lostAndFound/**
-    serviceId: lostAndFoundService
+    serviceId: lost-and-found-service
   propets-auth-service: 
     path: /auth/**
     serviceId: propets-auth-service
   ui:
     path: /**
-    url: http://84.228.171.29:3001
+    url: http://localhost:3000
 
 
 
@@ -18,9 +18,8 @@ zuul:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:5000}/eureka
+      defaultZone: ${EUREKA_URI:http://localhost:8761}/eureka
   
   instance:
       instanceId: ${DOMAIN_NAME:localhost}:${random.value}
-      hostname: ${DOMAIN_NAME}
-      nonSecurePort: 80
+      hostname: ${DOMAIN_NAME:localhost}
