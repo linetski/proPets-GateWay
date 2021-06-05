@@ -11,8 +11,13 @@ zuul:
     path: /**
     url: http://localhost:3000
 
-
-
+server:
+  ssl:
+    key-store: classpath:keystore/keystore.p12
+    key-store-password: propets
+    key-store-type: pkcs12
+    key-alias: tomcat
+    key-password: propets
 
    
 eureka:
